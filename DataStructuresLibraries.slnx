@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="BinaryTreeLibrary/BinaryTreeLibrary.csproj" />
+  <Project Path="DataStructuresLibraries/LinkedListLibrary.csproj" />
+  <Project Path="GlobalTesting/GlobalTesting.csproj" />
+  <Project Path="HashTablesProj/HashTablesProj.csproj" />
+  <Project Path="PostfixCalculator/PostfixCalculator.csproj" />
+  <Project Path="QueueLibrary/QueueLibrary.csproj" />
+  <Project Path="StackArrayLibrary/StackArrayLibrary.csproj" />
+  <Project Path="StackLib/StackLibrary.csproj" />
+</Solution>
