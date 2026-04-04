@@ -3,6 +3,7 @@
   <Project Path="DataStructuresLibraries/LinkedListLibrary.csproj" />
   <Project Path="GlobalTesting/GlobalTesting.csproj" />
   <Project Path="HashTablesProj/HashTablesProj.csproj" />
+  <Project Path="MyPriortyQueue/MyPriortyQueueLibrary.csproj" Id="dd987de4-e5e2-416f-9c54-d10aab5968c3" />
   <Project Path="PostfixCalculator/PostfixCalculator.csproj" />
   <Project Path="QueueLibrary/QueueLibrary.csproj" />
   <Project Path="StackArrayLibrary/StackArrayLibrary.csproj" />

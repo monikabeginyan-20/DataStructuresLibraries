@@ -142,7 +142,7 @@ public class MyBinaryTree<T> : IEnumerable<T> where T : IComparable<T>
     {
         if (node == null) yield break;
 
-        yield return node.Value; // Նախ վերցնում ենք արժեքը
+        yield return node.Value;
         foreach (T item in PreOrderTraversal(node.Left)) yield return item;
         foreach (T item in PreOrderTraversal(node.Right)) yield return item;
     }

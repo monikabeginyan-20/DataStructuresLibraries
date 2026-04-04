@@ -207,4 +207,47 @@ public class MyLinkedList<T> : ICollection<T>
     }
 
     #endregion
+    public bool AddBefore(T targetItem, T newItem)
+    {
+        if (Count == 0)
+            return false;
+
+        var comparer = EqualityComparer<T>.Default;
+
+        // Եթե թիրախը հենց առաջին տարրն է (Head)
+        if (comparer.Equals(Head.Value, targetItem))
+        {
+            AddFirst(newItem);
+            return true;
+        }
+
+        var current = Head;
+
+        // Փնտրում ենք այն հանգույցը, որի հաջորդը (Next) հավասար է targetItem-ին
+        while (current.Next != null)
+        {
+            if (comparer.Equals(current.Next.Value, targetItem))
+            {
+                var newNode = new MyLinkedListNode<T>(newItem);
+
+                // Նոր հանգույցը կապում ենք թիրախային հանգույցին
+                newNode.Next = current.Next;
+
+                // Նախորդ հանգույցը կապում ենք նոր հանգույցին
+                current.Next = newNode;
+
+                Count++;
+                return true;
+            }
+
+            current = current.Next;
+        }
+
+        return false; // Թիրախային տարրը չգտնվեց
+    }
+
+    public void AddBefore<T>(MyLinkedListNode<T> current, T item) where T : IComparable<T>
+    {
+        throw new NotImplementedException();
+    }
 }
