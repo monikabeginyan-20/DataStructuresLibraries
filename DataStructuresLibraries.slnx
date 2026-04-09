@@ -6,7 +6,7 @@
   <Project Path="MyPriortyQueue/MyPriortyQueueLibrary.csproj" Id="dd987de4-e5e2-416f-9c54-d10aab5968c3" />
   <Project Path="PostfixCalculator/PostfixCalculator.csproj" />
   <Project Path="QueueLibrary/QueueLibrary.csproj" />
-  <Project Path="SetLibrary/SetLibrary.csproj" Id="9570fcdb-87be-497b-b4fd-de569c274852" />
+  <Project Path="SetLib/SetLib.csproj" Id="9de45cad-3875-4078-8321-c19cf5c89924" />
   <Project Path="StackArrayLibrary/StackArrayLibrary.csproj" />
   <Project Path="StackLib/StackLibrary.csproj" />
 </Solution>
