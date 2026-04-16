@@ -9,4 +9,5 @@
   <Project Path="SetLib/SetLib.csproj" Id="9de45cad-3875-4078-8321-c19cf5c89924" />
   <Project Path="StackArrayLibrary/StackArrayLibrary.csproj" />
   <Project Path="StackLib/StackLibrary.csproj" />
+  <Project Path="WpfSet/WpfSet.csproj" Id="aef0bbdb-497b-49df-b658-d3547089cdb8" />
 </Solution>
