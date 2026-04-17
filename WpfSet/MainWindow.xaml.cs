@@ -1,76 +1,80 @@
-﻿using System.Windows;
+﻿using SetLib;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfSet;
 
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
+
 public partial class MainWindow : Window
 {
-    /// NOTE: Alternative if you wish, my child
-    //List<List<string>> clubOfIdiots = new List<List<string>>()
-    //{
-    //    new List<string> { "Աննա", "Մոնիկա", "Դավիթ" },
-    //    new List<string> { "Մոնիկա", "Սառա", "Դավիթ", "Էրիկ", "Կարեն" }
-    //};
+    MySet<Student> _men = new MySet<Student>();
+    MySet<Student> _women = new MySet<Student>();
+    MySet<Student> _reading = new MySet<Student>();
+    MySet<Student> _writing = new MySet<Student>();
+    MySet<Student> _arithmetic = new MySet<Student>();
 
-    // Տվյալների բառարանը
-    Dictionary<string, List<string>> collections = new Dictionary<string, List<string>>()
-    {
-        { "Reading", new List<string> { "Աննա", "Մոնիկա", "Դավիթ" } },
-        { "Writing", new List<string> { "Մոնիկա", "Սառա", "Դավիթ", "Էրիկ", "Կարեն" } }
-    };
-
-
-    /// NOTE: Use the 'SetLib', my child
-
+    Dictionary<string, MySet<Student>> allSets = new Dictionary<string, MySet<Student>>();
 
     public MainWindow()
     {
-        InitializeComponent();
+        InitializeComponent(); // Սա կապում է դիզայնը կոդի հետ
+
+        // Տվյալների ստեղծում
+        Student james = new Student(id: 1, name: "James", Gender.Male);
+        Student robert = new Student(id: 2, name: "Robert", Gender.Male);
+        Student john = new Student(id: 3, name: "John", Gender.Male);
+        Student mark = new Student(id: 4, name: "Mark", Gender.Male);
+        Student otherMark = new Student(id: 5, name: "Mark", Gender.Male);
+        _men.AddRange(new Student[] { james, robert, john, mark, otherMark });
+
+        Student liz = new Student(id: 6, name: "Liza", Gender.Female);
+        Student amy = new Student(id: 7, name: "Amy", Gender.Female);
+        Student eve = new Student(id: 8, name: "Evelyn", Gender.Female);
+        _women.AddRange(new Student[] { liz, amy, eve });
+
+        _reading.AddRange(new Student[] { james, robert, liz });
+        _writing.AddRange(new Student[] { robert, mark, amy, liz });
+        _arithmetic.AddRange(new Student[] { john, mark, otherMark, amy });
+
+        allSets.Add("Men", _men);
+        allSets.Add("Women", _women);
+        allSets.Add("Reading", _reading);
+        allSets.Add("Writing", _writing);
+        allSets.Add("Arithmetic", _arithmetic);
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        // Մաքրում ենք հին տարրերը (եթե կան) և լցնում նորերը
-        leftSet.Items.Clear();
-        rightSet.Items.Clear();
-        operation.Items.Clear();
-
-        /// NOTE: Alternative
-        //foreach (var key in clubOfIdiots[0])
-        //{
-        //    leftSet.Items.Add(key);
-        //    rightSet.Items.Add(key);
-        //}
-
-        foreach (var key in collections.Keys)
+        foreach (string name in allSets.Keys)
         {
-            leftSet.Items.Add(key);
-            rightSet.Items.Add(key);
+            leftSet.Items.Add(name);
+            rightSet.Items.Add(name);
         }
 
         operation.Items.Add("UNION");
         operation.Items.Add("INTERSECTION");
         operation.Items.Add("DIFFERENCE");
-        operation.Items.Add("SYMMETRIC DIFFERENCE");
-
-        leftSet.SelectedIndex = 0;
-        rightSet.SelectedIndex = 1;
-        operation.SelectedIndex = 0;
+        operation.Items.Add("SYMETRIC DIFF");
     }
 
+    // Սա այն մեթոդն է, որը փնտրում է XAML-ը 6 և 8 տողերում
     private void Set_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (leftSet.SelectedItem != null && leftMembers != null)
-        {
-            leftMembers.ItemsSource = collections[leftSet.SelectedItem.ToString()];
-        }
+        ComboBox? combo = sender as ComboBox;
+        if (combo == null || e.AddedItems.Count == 0) return;
 
-        if (rightSet.SelectedItem != null && rightMembers != null)
+        string selectedName = e.AddedItems[0].ToString();
+        var selectedSet = allSets[selectedName];
+
+        if (combo.Name == "leftSet")
         {
-            rightMembers.ItemsSource = collections[rightSet.SelectedItem.ToString()];
+            leftMembers.Items.Clear();
+            foreach (var s in selectedSet) leftMembers.Items.Add(s.Name);
+        }
+        else if (combo.Name == "rightSet")
+        {
+            rightMembers.Items.Clear();
+            foreach (var s in selectedSet) rightMembers.Items.Add(s.Name);
         }
     }
 
@@ -78,38 +82,24 @@ public partial class MainWindow : Window
     {
         if (leftSet.SelectedItem == null || rightSet.SelectedItem == null || operation.SelectedItem == null)
         {
-            MessageBox.Show("Խնդրում ենք ընտրել բոլոր դաշտերը:");
+            MessageBox.Show("Ընտրեք բոլոր դաշտերը:");
             return;
         }
 
-        var set1 = collections[leftSet.SelectedItem.ToString()];
-        var set2 = collections[rightSet.SelectedItem.ToString()];
+        var left = allSets[leftSet.SelectedItem.ToString()];
+        var right = allSets[rightSet.SelectedItem.ToString()];
+        string op = operation.SelectedItem.ToString();
 
-        IEnumerable<string> result = null;
-        string selectedOp = operation.SelectedItem.ToString();
+        MySet<Student> result = op switch
+        {
+            "UNION" => left.Union(right),
+            "INTERSECTION" => left.Intersection(right),
+            "DIFFERENCE" => left.Difference(right),
+            "SYMETRIC DIFF" => left.SymmetricDifference(right),
+            _ => new MySet<Student>()
+        };
 
-        if (selectedOp == "UNION")
-        {
-            result = set1.Union(set2);
-        }
-        else if (selectedOp == "INTERSECTION")
-        {
-            result = set1.Intersect(set2);
-        }
-        else if (selectedOp == "DIFFERENCE")
-        {
-            result = set1.Except(set2);
-        }
-        else if (selectedOp == "SYMMETRIC DIFFERENCE")
-        {
-            // Սիմետրիկ տարբերություն: (A \ B) ∪ (B \ A)
-            var diff1 = set1.Except(set2);
-            var diff2 = set2.Except(set1);
-            result = diff1.Union(diff2);
-        }
-
-        // ԿԱՐԵՎՈՐ: Մաքրում ենք հին ItemsSource-ը, որպեսզի UI-ը թարմանա
-        resultSet.ItemsSource = null;
-        resultSet.ItemsSource = result?.ToList();
+        resultSet.Items.Clear();
+        foreach (var s in result) resultSet.Items.Add(s.Name);
     }
 }

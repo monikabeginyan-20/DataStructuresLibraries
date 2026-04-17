@@ -1,7 +1,8 @@
-﻿using LinkedListLibrary;
+﻿
 using System.Collections;
+using LinkedListLibrary;
 
-namespace SetProject;
+namespace SetLib;
 
 public class MySet<T> : IEnumerable<T> where T : IComparable<T>
 {
