@@ -1,11 +1,10 @@
 ﻿namespace MyBubbleSortProj;
 
-public class MyBubbleSort<T>
-    where T : IComparable<T>
-
+public class MyBubbleSort<T> where T : IComparable<T>
 {
-    public void Sort(T[] items)
+    public void BubbleSort(T[] items)
     {
+        if (items == null) return;
         bool swapped;
 
         do
@@ -13,14 +12,31 @@ public class MyBubbleSort<T>
             swapped = false;
             for (int i = 1; i < items.Length; i++)
             {
-                if (Compare(items[i - 1], items[i]) >0)
+                if (Compare(items[i - 1], items[i]) > 0)
                 {
                     Swap(items, i - 1, i);
                     swapped = true;
                 }
-
             }
-        } while(swapped !=false);
+        } while (swapped);
+    }
+
+    public void InsertionSort(T[] items)
+    {
+        if (items == null) return;
+
+        for (int i = 1; i < items.Length; i++)
+        {
+            T key = items[i];
+            int j = i - 1;
+
+            while (j >= 0 && Compare(items[j], key) > 0)
+            {
+                items[j + 1] = items[j];
+                j = j - 1;
+            }
+            items[j + 1] = key;
+        }
     }
 
     private void Swap(T[] items, int a, int b)
@@ -34,8 +50,10 @@ public class MyBubbleSort<T>
     {
         return t1.CompareTo(t2);
     }
+
     public void ExecuteSort(T[] items)
     {
-        return;
+        BubbleSort(items);
     }
+
 }

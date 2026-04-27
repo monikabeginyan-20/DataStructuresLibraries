@@ -3,7 +3,7 @@
 public class MyInsertionSort<T>
     where T : IComparable<T>
 {
-    public void Sort(T[] items)
+    public void InsertionSort(T[] items)
     {
         for (int i = 1; i < items.Length; i++)
         {

@@ -3,6 +3,8 @@ using StackLibrary;
 using MyQueueProj;
 using BinaryTreeLibrary;
 using MyBubbleSortProj;
+using MyInsertionSortProj;
+using MySelectionSortProj;
 
 namespace GlobalTesting;
 
@@ -14,6 +16,9 @@ internal class Program
         TestStack();
         TestQueue();
         TestBinaryTree();
+        TestBubbleSort();
+        TestInsertionSort();
+        TestSelectionSort();
 
         Console.WriteLine("\n--- All tests completed ---");
     }
@@ -85,6 +90,81 @@ internal class Program
 
         bst.Remove(30);
         Console.WriteLine("After removing 30 (In-Order): " + string.Join(", ", bst));
+        Console.WriteLine();
+    }
+    static void TestBubbleSort()
+    {
+        Console.WriteLine("### Testing Bubble Sort ###");
+
+        var sorter = new MyBubbleSort<int>();
+        int[] numbers = { 52, 10, 8, 25, 40, 2 };
+
+        Console.WriteLine($"Original array: {string.Join(", ", numbers)}");
+
+        // Կանչում ենք տեսակավորման մեթոդը
+        sorter.BubbleSort(numbers);
+
+        Console.WriteLine($"Sorted array:   {string.Join(", ", numbers)}");
+
+        // Թեստավորում տեքստային (string) տիպի համար
+        var stringSorter = new MyBubbleSort<string>();
+        string[] names = { "Banana", "Apple", "Cherry", "Date" };
+
+        Console.WriteLine($"\nOriginal names: {string.Join(", ", names)}");
+        stringSorter.BubbleSort(names);
+        Console.WriteLine($"Sorted names:   {string.Join(", ", names)}");
+
+        Console.WriteLine();
+    }
+
+    static void TestInsertionSort()
+    {
+        Console.WriteLine("### Testing Insertion Sort ###");
+
+        var sorter = new MyBubbleSort<int>();
+        int[] numbers = { 15, 3, 8, 1, 20, 5, 12 };
+
+        Console.WriteLine($"Original array: {string.Join(", ", numbers)}");
+
+        // Կանչում ենք InsertionSort մեթոդը
+        sorter.InsertionSort(numbers);
+
+        Console.WriteLine($"Sorted array:   {string.Join(", ", numbers)}");
+
+        // Թեստավորում string-ների համար
+        var stringSorter = new MyBubbleSort<string>();
+        string[] fruits = { "Orange", "Apple", "Mango", "Banana" };
+
+        Console.WriteLine($"\nOriginal fruits: {string.Join(", ", fruits)}");
+        stringSorter.InsertionSort(fruits);
+        Console.WriteLine($"Sorted fruits:   {string.Join(", ", fruits)}");
+
+        Console.WriteLine();
+    }
+
+    static void TestSelectionSort()
+    {
+        Console.WriteLine("### Testing Selection Sort ###");
+
+        // Ստեղծում ենք սորտավորող օբյեկտը int-երի համար
+        var sorter = new MySelectionSort<int>();
+        int[] numbers = { 64, 25, 12, 22, 11 };
+
+        Console.WriteLine($"Original array: {string.Join(", ", numbers)}");
+
+        // Կանչում ենք Sort մեթոդը
+        sorter.SelectionSort(numbers);
+
+        Console.WriteLine($"Sorted array:   {string.Join(", ", numbers)}");
+
+        // Թեստավորում string-ների համար
+        var stringSorter = new MySelectionSort<string>();
+        string[] cities = { "Yerevan", "London", "Paris", "Berlin" };
+
+        Console.WriteLine($"\nOriginal cities: {string.Join(", ", cities)}");
+        stringSorter.SelectionSort(cities);
+        Console.WriteLine($"Sorted cities:   {string.Join(", ", cities)}");
+
         Console.WriteLine();
     }
 }

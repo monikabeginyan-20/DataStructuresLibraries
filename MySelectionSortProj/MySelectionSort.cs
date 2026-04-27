@@ -3,7 +3,7 @@
 public class MySelectionSort<T>
     where T : IComparable<T>
 {
-    public void Sort(T[] items)
+    public void SelectionSort(T[] items)
     {
         for (int i = 0; i < items.Length - 1; i++)
         {
