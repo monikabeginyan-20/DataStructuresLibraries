@@ -30,6 +30,9 @@ class Program
         Console.WriteLine("Ձիու նվազագույն քայլերի քանակը (1,1)-ից (8,8): " + steps);
 
         Console.ReadKey();
+
+        // Փղի (Bishop) քայլի ստուգում
+        Console.WriteLine(DiagonalBishop(0, 7, 4, 3, 2, 5)); 
     }
 
     static void PrintMainDiagonal(int MatrixSize)
@@ -105,5 +108,23 @@ class Program
             }
         }
         return -1;
+    }
+
+    static bool DiagonalBishop(int startRow, int startCol, int targetRow, int targetCol, int obstacleRow, int obstacleCol)
+    {
+        if (Math.Abs(startRow - targetRow) == Math.Abs(startCol - targetCol))
+        {
+            if (Math.Abs(obstacleRow - targetRow) == Math.Abs(obstacleCol - targetCol))
+            {
+                if (obstacleRow > Math.Min(targetRow, startRow) && obstacleRow > Math.Max(targetRow, startRow))
+                {
+                    if (obstacleCol > Math.Min(targetCol, startCol) && obstacleCol > Math.Max(targetCol, startCol)) return true;
+                    else return false;
+                }
+                else return false;
+            }
+            else return true;
+        }
+        else return false;
     }
 }
