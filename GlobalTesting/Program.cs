@@ -130,7 +130,7 @@ internal class Program
     {
         Console.WriteLine("### Testing Insertion Sort ###");
 
-        var sorter = new MyBubbleSort<int>();
+        var sorter = new MyInsertionSort<int>();
         int[] numbers = { 15, 3, 8, 1, 20, 5, 12 };
 
         Console.WriteLine($"Original array: {string.Join(", ", numbers)}");
@@ -141,7 +141,7 @@ internal class Program
         Console.WriteLine($"Sorted array:   {string.Join(", ", numbers)}");
 
         // Թեստավորում string-ների համար
-        var stringSorter = new MyBubbleSort<string>();
+        var stringSorter = new MyInsertionSort<string>();
         string[] fruits = { "Orange", "Apple", "Mango", "Banana" };
 
         Console.WriteLine($"\nOriginal fruits: {string.Join(", ", fruits)}");

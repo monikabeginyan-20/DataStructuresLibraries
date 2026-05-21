@@ -19,6 +19,13 @@ public class MyInsertionSort<T>
         }
     }
 
+    private void Swap(T[] items, int a, int b)
+    {
+        T temp = items[a];
+        items[a] = items[b];
+        items[b] = temp;
+    }
+
     private int Compare(T t1, T t2)
     {
         return t1.CompareTo(t2);
